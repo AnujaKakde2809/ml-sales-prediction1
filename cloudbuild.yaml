@@ -16,6 +16,7 @@ steps:
         '--region', 'us-east1',
         '--platform', 'managed',
         '--allow-unauthenticated',
+        '--timeout', '800s',
         '--set-env-vars', 'VERSION=$SHORT_SHA'
       ]
     id: 'Deployment of App'
