@@ -1,4 +1,4 @@
-FROM python:3.9-slim
+FROM python:3.11-slim
 
 WORKDIR /app
 
@@ -9,4 +9,4 @@ COPY app.py .
 COPY model.pkl .
 EXPOSE 8080
 
-CMD ["python", "app.py", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["python", "app.py"]
