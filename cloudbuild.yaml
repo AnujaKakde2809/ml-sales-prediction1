@@ -1,10 +1,10 @@
 steps:
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'us-east1-docker.pkg.dev/$PROJECT_ID/gcr-repo-anuja/ml-prediction-app:$SHORT_SHA', '.']
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/gcr-repo-anuja/ml-prediction-app:$SHORT_SHA', '.']
     id: 'Build Docker Image'
 
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'us-east1-docker.pkg.dev/$PROJECT_ID/gcr-repo-anuja/ml-prediction-app:$SHORT_SHA']
+    args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/gcr-repo-anuja/ml-prediction-app:$SHORT_SHA']
     id: 'Push Image to GCR'
 
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -12,14 +12,15 @@ steps:
     args:
       [
         'run', 'deploy', 'ml-prediction-app',
-        '--image=us-east1-docker.pkg.dev/$PROJECT_ID/gcr-repo-anuja/ml-prediction-app:$SHORT_SHA',
-        '--region', 'us-east1',
+        '--image=us-central1-docker.pkg.dev/$PROJECT_ID/gcr-repo-anuja/ml-prediction-app:$SHORT_SHA',
+        '--region', 'us-central1',
         '--platform', 'managed',
         '--allow-unauthenticated',
-        '--timeout', '800s',
         '--set-env-vars', 'VERSION=$SHORT_SHA'
       ]
     id: 'Deployment of App'
+
+timeout: '800s'
 
 options:
   defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
